@@ -185,7 +185,13 @@
   var kak4s = document.getElementById('kak4');
   var kak5s = document.getElementById('kak5');
   var kak6s = document.getElementById('kak6');
-
+  // 対数変換を利用した安全な確率計算
+  function safePow(base, exponent) {
+    if (base <= 0) return 0; // baseが0以下の場合は0を返す
+    const logResult = exponent * Math.log(base);
+    if (logResult < -745) return 0; // exp(-745)以下は実質ゼロに近似
+    return Math.exp(logResult);
+  }
 
   // カウンターの値を更新する関数
   function updateCounter(inputElement, value) {
@@ -440,37 +446,37 @@ if (bb_combin > threshold || rb_combin > threshold) {
     // BIG計算
     var pb_bb_1_left = bb_1;
     console.log("pb_bb_1_left", pb_bb_1_left);
-    pb_bb_1_left **= bb;
+    pb_bb_1_left = safePow(bb_1, bb);
     console.log("pb_bb_1_left", pb_bb_1_left);
     var pb_bb_1_right = 1 - bb_1;
     console.log("pb_bb_1_right", pb_bb_1_right);
-    pb_bb_1_right **= (times - bb);
+    pb_bb_1_right = safePow(pb_bb_1_right, (times - bb));
     console.log("pb_bb_1_right", pb_bb_1_right);
     
     var pb_bb_2_left = bb_2;
-    pb_bb_2_left **= bb;
+    pb_bb_2_left = safePow(pb_bb_2_left, bb);
     var pb_bb_2_right = 1 - bb_2;
-    pb_bb_2_right **= (times - bb);
+    pb_bb_2_right = safePow(pb_bb_2_right, (times - bb));
     
     var pb_bb_3_left = bb_3;
-    pb_bb_3_left **= bb;
+    pb_bb_3_left = safePow(pb_bb_3_left, bb);
     var pb_bb_3_right = 1 - bb_3;
-    pb_bb_3_right **= (times - bb);
+    pb_bb_3_right = safePow(pb_bb_3_right, (times - bb));
     
     var pb_bb_4_left = bb_4;
-    pb_bb_4_left **= bb;
+    pb_bb_4_left = safePow(pb_bb_4_left, bb);
     var pb_bb_4_right = 1 - bb_4;
-    pb_bb_4_right **= (times - bb);
+    pb_bb_4_right = safePow(pb_bb_4_right, (times - bb));
     
     var pb_bb_5_left = bb_5;
-    pb_bb_5_left **= bb;
+    pb_bb_5_left = safePow(pb_bb_5_left, bb);
     var pb_bb_5_right = 1 - bb_5;
-    pb_bb_5_right **= (times - bb);
+    pb_bb_5_right = safePow(pb_bb_5_right, (times - bb));
     
     var pb_bb_6_left = bb_6;
-    pb_bb_6_left **= bb;
+    pb_bb_6_left = safePow(pb_bb_6_left, bb);
     var pb_bb_6_right = 1 - bb_6;
-    pb_bb_6_right **= (times - bb);
+    pb_bb_6_right = safePow(pb_bb_6_right, (times - bb));
     var value_bb_1 = bb_combi * pb_bb_1_left * pb_bb_1_right;
     console.log("value_bb_1", value_bb_1);
     var value_bb_2 = bb_combi * pb_bb_2_left * pb_bb_2_right;
@@ -500,34 +506,34 @@ if (bb_combin > threshold || rb_combin > threshold) {
     
     // REG計算    
     var pb_rb_1_left = rb_1;
-    pb_rb_1_left **= rb;
+    pb_rb_1_left = safePow(pb_rb_1_left, rb);
     var pb_rb_1_right = 1 - rb_1;
-    pb_rb_1_right **= (times - rb);
+    pb_rb_1_right = safePow(pb_rb_1_right, (times - rb));
     
     var pb_rb_2_left = rb_2;
-    pb_rb_2_left **= rb;
+    pb_rb_2_left = safePow(pb_rb_2_left, rb);
     var pb_rb_2_right = 1 - rb_2;
-    pb_rb_2_right **= (times - rb);
-    
+    pb_rb_2_right = safePow(pb_rb_2_right, (times - rb));
+
     var pb_rb_3_left = rb_3;
-    pb_rb_3_left **= rb;
+    pb_rb_3_left = safePow(pb_rb_3_left, rb);
     var pb_rb_3_right = 1 - rb_3;
-    pb_rb_3_right **= (times - rb);
+    pb_rb_3_right = safePow(pb_rb_3_right, (times - rb));
     
     var pb_rb_4_left = rb_4;
-    pb_rb_4_left **= rb;
+    pb_rb_4_left = safePow(pb_rb_4_left, rb);
     var pb_rb_4_right = 1 - rb_4;
-    pb_rb_4_right **= (times - rb);
+    pb_rb_4_right = safePow(pb_rb_4_right, (times - rb));
     
     var pb_rb_5_left = rb_5;
-    pb_rb_5_left **= rb;
+    pb_rb_5_left = safePow(pb_rb_5_left, rb);
     var pb_rb_5_right = 1 - rb_5;
-    pb_rb_5_right **= (times - rb);
+    pb_rb_5_right = safePow(pb_rb_5_right, (times - rb));
     
     var pb_rb_6_left = rb_6;
-    pb_rb_6_left **= rb;
+    pb_rb_6_left = safePow(pb_rb_6_left, rb);
     var pb_rb_6_right = 1 - rb_6;
-    pb_rb_6_right **= (times - rb);
+    pb_rb_6_right = safePow(pb_rb_6_right, (times - rb));
     
     var value_rb_1 = rb_combi * pb_rb_1_left * pb_rb_1_right;
     console.log("value_rb_1", value_rb_1);
